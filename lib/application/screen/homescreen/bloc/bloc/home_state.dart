@@ -4,7 +4,7 @@ class HomeState extends Equatable {
 
   final bool loading; 
   final String errorMessage; 
-  final List<String> noteList; 
+  final List<NoteEntity> noteList; 
   
    const HomeState({required this.loading, required this.errorMessage, required this.noteList});
 
@@ -22,7 +22,7 @@ class HomeState extends Equatable {
   HomeState copyWith({
     bool? loading,
     String? errorMessage,
-    List<String>? noteList,
+    List<NoteEntity>? noteList,
   }) {
     return HomeState(
       loading: loading ?? this.loading,

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:note_application/domain/note_entity.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -9,6 +10,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeState.initial()) {
     on<FetchNoteEvent>(fetchNotesFromDatabase);
+    on<CreateNewNoteEvent>(createNewNote);
   }
 
   FutureOr<void> fetchNotesFromDatabase(FetchNoteEvent event, Emitter<HomeState> emit) async {
@@ -19,5 +21,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(state.copyWith(noteList: [...state.noteList], loading: false));
            
 
+  }
+
+  FutureOr<void> createNewNote(CreateNewNoteEvent event, Emitter<HomeState> emit) {
+    emit(state.copyWith(noteList: [...state.noteList, event.noteToBeAdded]));
   }
 }

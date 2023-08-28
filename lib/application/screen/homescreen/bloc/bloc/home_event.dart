@@ -11,3 +11,9 @@ sealed  class HomeEvent extends Equatable {
 class FetchNoteEvent extends HomeEvent {
 
 }
+
+class CreateNewNoteEvent extends HomeEvent {
+  final NoteEntity noteToBeAdded; 
+
+  const CreateNewNoteEvent({required this.noteToBeAdded});
+}

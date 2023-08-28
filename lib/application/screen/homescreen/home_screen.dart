@@ -6,6 +6,7 @@ import 'package:note_application/application/core/widgets/errors_widget.dart';
 import 'package:note_application/application/screen/homescreen/bloc/bloc/home_bloc.dart';
 import 'package:note_application/application/screen/homescreen/widget/loadingpage.dart';
 import 'package:note_application/application/screen/homescreen/widget/notelistwidget.dart';
+import 'package:note_application/domain/note_entity.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -36,6 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(onPressed: () {}, icon: const Icon(Icons.menu_rounded))
         ],
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        BlocProvider.of<HomeBloc>(context).add(CreateNewNoteEvent(noteToBeAdded: NoteEntity(noteTitle: "Mynote", noteContent: "Mycontent", createAt: DateTime.now())));
+      }, child: const Icon(Icons.add),),
       body: BlocBuilder(
         bloc: BlocProvider.of<HomeBloc>(context),
         builder: (context, state){
@@ -46,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
         else if(homePageState.errorMessage != ''){
           return  ShowErrorAppWidget(errorMessage: homePageState.errorMessage);
         }else{
-          return NoteListWidget(noteList: []);
+          return NoteListWidget(noteList: state.noteList);
         }
       })
     );
