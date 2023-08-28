@@ -1,30 +1,36 @@
 part of 'home_bloc.dart';
 
 class HomeState extends Equatable {
+  @override
+  List<Object?> get props => [];
+
+}
+
+class HomeStateUI extends HomeState {
 
   final bool loading; 
   final String errorMessage; 
   final List<NoteEntity> noteList; 
   
-   const HomeState({required this.loading, required this.errorMessage, required this.noteList});
+    HomeStateUI({required this.loading, required this.errorMessage, required this.noteList});
 
-   factory HomeState.initial(){
-    return const HomeState(
+   factory HomeStateUI.initial(){
+    return  HomeStateUI(
       loading: true, 
       errorMessage: "", 
-      noteList: []
+      noteList: const []
     );
    }
   
   @override
   List<Object> get props => [loading, errorMessage, noteList];
 
-  HomeState copyWith({
+  HomeStateUI copyWith({
     bool? loading,
     String? errorMessage,
     List<NoteEntity>? noteList,
   }) {
-    return HomeState(
+    return HomeStateUI(
       loading: loading ?? this.loading,
       errorMessage: errorMessage ?? this.errorMessage,
       noteList: noteList ?? this.noteList,
@@ -33,6 +39,19 @@ class HomeState extends Equatable {
 
   @override
   String toString() => 'HomeState(loading: $loading, errorMessage: $errorMessage, noteList: $noteList)';
+}
+
+//! Set action for the HomeScreenUI
+
+abstract class HomeScreenAction extends HomeState {
+  final clickTime = DateTime.now().millisecondsSinceEpoch;
+  
+  @override
+  List<Object> get props => [clickTime] ; 
+}
+
+class GoToCreateNotePage extends HomeScreenAction {
+  
 }
 
 

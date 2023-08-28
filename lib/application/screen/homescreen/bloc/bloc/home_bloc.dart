@@ -8,22 +8,28 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(HomeState.initial()) {
+  HomeBloc() : super(HomeStateUI.initial()) {
     on<FetchNoteEvent>(fetchNotesFromDatabase);
     on<CreateNewNoteEvent>(createNewNote);
+    on<AddNoteFabButtonPressed>(navigateToCreateNotePage);
   }
 
   FutureOr<void> fetchNotesFromDatabase(FetchNoteEvent event, Emitter<HomeState> emit) async {
-      emit(state.copyWith(loading: true));
+      emit((state as HomeStateUI).copyWith(loading: true));
       await Future.delayed(const Duration(seconds: 3));
 
       //emit state with notelist
-      emit(state.copyWith(noteList: [...state.noteList], loading: false));
+      emit((state as HomeStateUI).copyWith(noteList: [...(state as HomeStateUI).noteList], loading: false));
            
 
   }
 
   FutureOr<void> createNewNote(CreateNewNoteEvent event, Emitter<HomeState> emit) {
-    emit(state.copyWith(noteList: [...state.noteList, event.noteToBeAdded]));
+    emit((state as HomeStateUI).copyWith(noteList: [...(state as HomeStateUI).noteList, event.noteToBeAdded]));
+  }
+
+  FutureOr<void> navigateToCreateNotePage(AddNoteFabButtonPressed event, Emitter<HomeState> emit) {
+    final navigationState = GoToCreateNotePage(); 
+    emit(navigationState);
   }
 }

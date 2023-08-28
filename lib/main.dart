@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: BlocProvider(
           create: (context) => HomeBloc(),
-          child: HomeScreen(),
+          child: const HomeScreen(),
         ));
   }
 }

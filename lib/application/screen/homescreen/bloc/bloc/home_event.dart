@@ -17,3 +17,7 @@ class CreateNewNoteEvent extends HomeEvent {
 
   const CreateNewNoteEvent({required this.noteToBeAdded});
 }
+
+class AddNoteFabButtonPressed extends HomeEvent {
+  
+}
