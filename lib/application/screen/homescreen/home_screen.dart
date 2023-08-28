@@ -26,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context); //Accede al tema dell'applicazione.
 
+    var isLoading = true;
+
     return BlocListener<HomeBloc, HomeState>(
       listenWhen: (previous, current) => current is HomeScreenAction,
       listener: (context, state) {
@@ -57,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return ShowErrorAppWidget(
                       errorMessage: homePageState.errorMessage);
                 } else {
+                  isLoading = false;
                   return NoteListWidget(noteList: state.noteList);
                 }
               })),

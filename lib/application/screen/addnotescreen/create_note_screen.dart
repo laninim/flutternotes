@@ -9,17 +9,40 @@ class CreateNoteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-        title: const Text("Note1"),
+        title: const Text("Create Note"),
       actions: const [
-        Icon(Icons.save)
+        Padding(
+          padding: EdgeInsets.only(right: 8.0),
+          child: Icon(Icons.save),
+        )
       ],
       ),
         body: WillPopScope(
           onWillPop: () async {
             return true; 
           },
-          child: const Column(
+          child:  Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Column(
+              children: [
+                  Expanded(child: ListView(
+                    children: [
+                      TextFormField(
+                      minLines: 3,
+                        maxLines: 50,
+                        keyboardType: TextInputType.multiline,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none
+                        ),
+                        autofocus: true,
+                        autocorrect: false,
+                  )
 
+                    ],
+                  ))
+
+              ],
+            ),
           ),
         )
     );
