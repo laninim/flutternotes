@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_application/application/core/themedata.dart';
+import 'package:note_application/application/screen/homescreen/bloc/bloc/home_bloc.dart';
 import 'package:note_application/application/screen/homescreen/home_screen.dart';
 
 void main() {
@@ -13,12 +15,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
-      darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-      title: 'Flutter AppNote',
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen()
-    );
+        theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
+        darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+        title: 'Flutter AppNote',
+        debugShowCheckedModeBanner: false,
+        home: BlocProvider(
+          create: (context) => HomeBloc(),
+          child: HomeScreen(),
+        ));
   }
 }
-
