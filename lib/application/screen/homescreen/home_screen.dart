@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,6 +12,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+
+    final themeData = Theme.of(context); //Accede al tema dell'applicazione.
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Flutter Notes"),
+        centerTitle: Platform.isAndroid ? false : true,
+        backgroundColor: themeData.colorScheme.primaryContainer,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.menu_rounded))
+        ],
+      ),
+    );
   }
 }

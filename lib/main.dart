@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_application/application/core/themedata.dart';
+import 'package:note_application/application/screen/homescreen/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       title: 'Flutter AppNote',
       debugShowCheckedModeBanner: false,
-      home: const Text("") 
+      home: HomeScreen()
     );
   }
 }
