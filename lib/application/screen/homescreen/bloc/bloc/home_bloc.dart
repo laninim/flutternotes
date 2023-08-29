@@ -11,6 +11,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeScreenState> {
   HomeBloc() : super(HomeState()) {
       on<RequestNavigateToCreateNoteScreen>(navigateToAnotherPage);
+      on<StartApplicationEvent>(setupStartApplication);
   }
 
   FutureOr<void> fetchNotesFromDatabase(FetchNoteEvent event, Emitter<HomeState> emit) async {
@@ -23,5 +24,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeScreenState> {
     debugPrint("User Send request for navigate to another screen");
     final currentState  = ResponseFabButtonState();
     emit(currentState);
+  }
+
+  FutureOr<void> setupStartApplication(StartApplicationEvent event, Emitter<HomeScreenState> emit) async {
+    emit(LoadingState());
+    await Future.delayed(const Duration(seconds: 3));
+    emit(NoteListState(noteList: [
+      NoteEntity(noteTitle: "MyNote", noteContent: "Mycontent", createAt: DateTime.now())
+    ]));
   }
 }

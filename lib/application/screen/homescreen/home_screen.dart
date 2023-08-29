@@ -18,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
+    BlocProvider.of<HomeBloc>(context).add(StartApplicationEvent());
     super.initState();
   }
 
@@ -36,18 +37,27 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(onPressed: () {}, icon: const Icon(Icons.menu_rounded))
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          BlocProvider.of<HomeBloc>(context)
-              .add(RequestNavigateToCreateNoteScreen());
-        },
-        child: const Icon(Icons.add),
+      floatingActionButton: Visibility(
+        child: FloatingActionButton(
+          onPressed: () {
+            BlocProvider.of<HomeBloc>(context)
+                .add(RequestNavigateToCreateNoteScreen());
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
       body: BlocConsumer(
-        buildWhen: (previous, current) => current is HomeState,
+        buildWhen: (previous, current) => current is! HomeScreenAction,
         bloc: BlocProvider.of<HomeBloc>(context),
         builder: (context, state) {
-          return const NoteListWidget(noteList: []);
+          if(state is LoadingState){
+            return const LoadingContentWidget();
+          }else if(state is NoteListState){
+            return NoteListWidget(noteList: state.noteList);
+          }else if(state is ErrorScreenState){
+            return ShowErrorAppWidget(errorMessage: state.messageError);
+          }
+          return const Text("Errore critico gestione stato");
         },
         listener: (BuildContext context, Object? state) {
           if(state is ResponseFabButtonState){
