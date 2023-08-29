@@ -28,34 +28,74 @@ class _HomeScreenState extends State<HomeScreen> {
 
     var isLoading = true;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Flutter Notes"),
-        centerTitle: Platform.isAndroid ? false : true,
-        backgroundColor: themeData.colorScheme.primaryContainer,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.menu_rounded))
-        ],
-      ),
-      floatingActionButton: Visibility(
-        child: FloatingActionButton(
-          onPressed: () {
-            BlocProvider.of<HomeBloc>(context)
-                .add(RequestNavigateToCreateNoteScreen());
-          },
-          child: const Icon(Icons.add),
-        ),
-      ),
-      body: BlocConsumer(
+    return BlocConsumer(
         buildWhen: (previous, current) => current is! HomeScreenAction,
         bloc: BlocProvider.of<HomeBloc>(context),
         builder: (context, state) {
           if(state is LoadingState){
-            return const LoadingContentWidget();
+            return Scaffold(
+                appBar: AppBar(
+                  title: const Text("Flutter Notes"),
+                  centerTitle: Platform.isAndroid ? false : true,
+                  backgroundColor: themeData.colorScheme.primaryContainer,
+                  actions: [
+                    IconButton(onPressed: () {}, icon: const Icon(Icons.menu_rounded))
+                  ],
+                ),
+                floatingActionButton: Visibility(
+                  visible: false,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      BlocProvider.of<HomeBloc>(context)
+                          .add(RequestNavigateToCreateNoteScreen());
+                    },
+                    child: const Icon(Icons.add),
+                  ),
+                ),
+                body: const LoadingContentWidget(),
+            );
           }else if(state is NoteListState){
-            return NoteListWidget(noteList: state.noteList);
+             return Scaffold(
+              appBar: AppBar(
+                title: const Text("Flutter Notes"),
+                centerTitle: Platform.isAndroid ? false : true,
+                backgroundColor: themeData.colorScheme.primaryContainer,
+                actions: [
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.menu_rounded))
+                ],
+              ),
+              floatingActionButton: Visibility(
+                child: FloatingActionButton(
+                  onPressed: () {
+                    BlocProvider.of<HomeBloc>(context)
+                        .add(RequestNavigateToCreateNoteScreen());
+                  },
+                  child: const Icon(Icons.add),
+                ),
+              ),
+              body: NoteListWidget(noteList: state.noteList,),
+            );
           }else if(state is ErrorScreenState){
-            return ShowErrorAppWidget(errorMessage: state.messageError);
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text("Flutter Notes"),
+                centerTitle: Platform.isAndroid ? false : true,
+                backgroundColor: themeData.colorScheme.primaryContainer,
+                actions: [
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.menu_rounded))
+                ],
+              ),
+              floatingActionButton: Visibility(
+                child: FloatingActionButton(
+                  onPressed: () {
+                    BlocProvider.of<HomeBloc>(context)
+                        .add(RequestNavigateToCreateNoteScreen());
+                  },
+                  child: const Icon(Icons.add),
+                ),
+              ),
+              body: ShowErrorAppWidget(errorMessage: state.messageError,),
+            );
           }
           return const Text("Errore critico gestione stato");
         },
@@ -65,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
         listenWhen: (previous, current)  => current is HomeScreenAction,
-      ),
-    );
+      );
+
   }
 }
