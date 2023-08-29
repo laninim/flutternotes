@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         listener: (BuildContext context, Object? state) async {
           if(state is ResponseFabButtonState){
-            final noteReady = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateNoteScreen()));
+            final noteReady = await Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  CreateNoteScreen()));
             if(noteReady){
               BlocProvider.of<HomeBloc>(context).add(FetchNoteEvent());
             }

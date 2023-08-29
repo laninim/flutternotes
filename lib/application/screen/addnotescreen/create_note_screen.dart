@@ -7,7 +7,10 @@ import 'notebloc/note_bloc.dart';
 //create note show note edit note
 
 class CreateNoteScreen extends StatelessWidget {
-  const CreateNoteScreen({super.key});
+
+  CreateNoteScreen({super.key});
+
+  final contentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +29,20 @@ class CreateNoteScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 8.0),
                     child: IconButton(
                         onPressed: () {
+                          final content = contentController.text;
+                          var title = "";
+
+                          if(content.length < 10) {
+                            title = DateTime.now().millisecond.toString();
+                          }else{
+                            title = content.substring(0, 9);
+                          }
                           BlocProvider.of<NoteBloc>(context).add(
+
                               SaveNoteDataEvent(
                                   noteBeSave: NoteEntity(
-                                      noteTitle: "la mia prima nota",
-                                      noteContent: "questo è il contenuto della mia prima nota.",
+                                      noteTitle: title,
+                                      noteContent: content,
                                       createAt: DateTime.now())));
                           Navigator.of(context).pop(true);
                         },
@@ -46,6 +58,7 @@ class CreateNoteScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12.0, vertical: 6),
                     child: TextFormField(
+                      controller: contentController,
                       minLines: null,
                       maxLines: null,
                       expands: true,
