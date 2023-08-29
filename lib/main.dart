@@ -5,7 +5,8 @@ import 'package:note_application/application/screen/addnotescreen/notebloc/note_
 import 'package:note_application/application/screen/homescreen/bloc/bloc/home_bloc.dart';
 import 'package:note_application/application/screen/homescreen/home_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

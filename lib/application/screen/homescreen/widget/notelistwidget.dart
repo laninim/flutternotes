@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_application/domain/note_entity.dart';
+import 'package:note_application/domain/entity/note_entity.dart';
 
 class NoteListWidget extends StatelessWidget {
   final List<NoteEntity> noteList;

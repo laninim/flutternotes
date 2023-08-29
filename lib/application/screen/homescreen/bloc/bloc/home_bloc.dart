@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:note_application/data/mock_note_list.dart';
-import 'package:note_application/domain/note_entity.dart';
+import 'package:note_application/domain/entity/note_entity.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:note_application/domain/note_entity.dart';
+import 'package:note_application/domain/entity/note_entity.dart';
 
 import 'notebloc/note_bloc.dart';
 
@@ -29,8 +29,8 @@ class CreateNoteScreen extends StatelessWidget {
                           BlocProvider.of<NoteBloc>(context).add(
                               SaveNoteDataEvent(
                                   noteBeSave: NoteEntity(
-                                      noteTitle: "noteTitle",
-                                      noteContent: "noteContent",
+                                      noteTitle: "la mia prima nota",
+                                      noteContent: "questo è il contenuto della mia prima nota.",
                                       createAt: DateTime.now())));
                           Navigator.of(context).pop(true);
                         },
