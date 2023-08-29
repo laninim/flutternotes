@@ -22,29 +22,28 @@ class CreateNoteScreen extends StatelessWidget {
             return true; 
           },
           child:  Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Column(
-              children: [
-                  Expanded(child: ListView(
-                    children: [
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6),
+            child:
                       TextFormField(
-                      minLines: 3,
-                        maxLines: 50,
+                        minLines: null,
+                        maxLines: null,
+                        expands: true,
                         keyboardType: TextInputType.multiline,
                         decoration: const InputDecoration(
                           border: InputBorder.none
                         ),
                         autofocus: true,
                         autocorrect: false,
+
                   )
 
-                    ],
-                  ))
 
-              ],
+                  )
+
+
             ),
-          ),
-        )
+
+
     );
   }
 }
