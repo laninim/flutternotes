@@ -33,7 +33,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeScreenState> {
 
   FutureOr<void> setupStartApplication(StartApplicationEvent event, Emitter<HomeScreenState> emit) async {
     emit(LoadingState());
-    await Future.delayed(const Duration(seconds: 3));
-    emit(NoteListState(noteList: [...kMockNoteList]));
+    final getNoteUseCase = GetNoteUseCase();
+    final myList = await getNoteUseCase.getNoteList();
+    emit(NoteListState(noteList: [...myList]));
   }
 }
