@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_application/application/core/themedata.dart';
+import 'package:note_application/application/screen/addnotescreen/notebloc/note_bloc.dart';
 import 'package:note_application/application/screen/homescreen/bloc/bloc/home_bloc.dart';
 import 'package:note_application/application/screen/homescreen/home_screen.dart';
 
@@ -19,8 +20,8 @@ class MyApp extends StatelessWidget {
         darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
         title: 'Flutter AppNote',
         debugShowCheckedModeBanner: false,
-        home: BlocProvider(
-          create: (context) => HomeBloc(),
+        home: BlocProvider(create: (context) => HomeBloc(),
+
           child: const HomeScreen(),
         ));
   }

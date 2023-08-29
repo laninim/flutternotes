@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:note_application/data/mock_note_list.dart';
 import 'package:note_application/domain/note_entity.dart';
 
 part 'home_event.dart';
@@ -12,10 +13,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeScreenState> {
   HomeBloc() : super(HomeState()) {
       on<RequestNavigateToCreateNoteScreen>(navigateToAnotherPage);
       on<StartApplicationEvent>(setupStartApplication);
+      on<FetchNoteEvent>(fetchNotesFromDatabase);
   }
 
-  FutureOr<void> fetchNotesFromDatabase(FetchNoteEvent event, Emitter<HomeState> emit) async {
-
+  FutureOr<void> fetchNotesFromDatabase(FetchNoteEvent event, Emitter<HomeScreenState> emit) async {
+    emit(NoteListState(noteList: [...kMockNoteList]));
   }
 
 
@@ -29,8 +31,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeScreenState> {
   FutureOr<void> setupStartApplication(StartApplicationEvent event, Emitter<HomeScreenState> emit) async {
     emit(LoadingState());
     await Future.delayed(const Duration(seconds: 3));
-    emit(NoteListState(noteList: [
-      NoteEntity(noteTitle: "MyNote", noteContent: "Mycontent", createAt: DateTime.now())
-    ]));
+    emit(NoteListState(noteList: [...kMockNoteList]));
   }
 }

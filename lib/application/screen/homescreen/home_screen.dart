@@ -99,9 +99,12 @@ class _HomeScreenState extends State<HomeScreen> {
           }
           return const Text("Errore critico gestione stato");
         },
-        listener: (BuildContext context, Object? state) {
+        listener: (BuildContext context, Object? state) async {
           if(state is ResponseFabButtonState){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateNoteScreen()));
+            final noteReady = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateNoteScreen()));
+            if(noteReady){
+              BlocProvider.of<HomeBloc>(context).add(FetchNoteEvent());
+            }
           }
         },
         listenWhen: (previous, current)  => current is HomeScreenAction,
