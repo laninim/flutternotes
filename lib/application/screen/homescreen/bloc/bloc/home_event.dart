@@ -8,16 +8,21 @@ sealed  class HomeEvent extends Equatable {
 }
 
 
-class FetchNoteEvent extends HomeEvent {
+class FetchNoteEvent extends HomeEvent {}
 
-}
 
+//Fire when user want save a New Note in dataSources.
 class CreateNewNoteEvent extends HomeEvent {
   final NoteEntity noteToBeAdded; 
 
   const CreateNewNoteEvent({required this.noteToBeAdded});
 }
 
-class AddNoteFabButtonPressed extends HomeEvent {
-  
+//fire when Ui ask for an update note.
+class RequestUpadateNoteListData extends HomeEvent {
+
 }
+
+
+//fire this event when user click on fab button for go to CreateNoteScreen.
+class RequestNavigateToCreateNoteScreen extends HomeEvent {}

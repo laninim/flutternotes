@@ -1,58 +1,65 @@
 part of 'home_bloc.dart';
 
-class HomeState extends Equatable {
+abstract class HomeScreenState extends Equatable {
   @override
   List<Object?> get props => [];
-
 }
 
-class HomeStateUI extends HomeState {
+abstract class HomeScreenAction extends HomeScreenState {
+  HomeScreenAction();
+}
 
-  final bool loading; 
-  final String errorMessage; 
-  final List<NoteEntity> noteList; 
-  
-    HomeStateUI({required this.loading, required this.errorMessage, required this.noteList});
 
-   factory HomeStateUI.initial(){
-    return  HomeStateUI(
-      loading: true, 
-      errorMessage: "", 
-      noteList: const []
-    );
-   }
-  
-  @override
-  List<Object> get props => [loading, errorMessage, noteList];
+ class HomeState extends HomeScreenState {
+  HomeState() ;
+}
 
-  HomeStateUI copyWith({
-    bool? loading,
-    String? errorMessage,
+//This state is emit when user ask for noteList.
+class NoteListState extends HomeState {
+
+  final List<NoteEntity> noteList;
+
+  NoteListState({required this.noteList});
+
+
+
+  NoteListState copyWith({
     List<NoteEntity>? noteList,
   }) {
-    return HomeStateUI(
-      loading: loading ?? this.loading,
-      errorMessage: errorMessage ?? this.errorMessage,
+    return NoteListState(
       noteList: noteList ?? this.noteList,
     );
   }
-
-  @override
-  String toString() => 'HomeState(loading: $loading, errorMessage: $errorMessage, noteList: $noteList)';
 }
 
-//! Set action for the HomeScreenUI
+//this class is emit when screen loading some data.
+class LoadingState extends HomeState {
 
-abstract class HomeScreenAction extends HomeState {
-  final clickTime = DateTime.now().millisecondsSinceEpoch;
-  
-  @override
-  List<Object> get props => [clickTime] ; 
 }
 
-class GoToCreateNotePage extends HomeScreenAction {
-  
+
+//tell Ui there are problems and show Message.
+class ErrorScreenState extends HomeState {
+  final String messageError;
+
+   ErrorScreenState({
+    required this.messageError,
+  });
 }
+
+
+//state for action inside the ui!
+//emit when user press fab button and say to UI to navigate to another page!
+class ResponseFabButtonState extends HomeScreenAction {
+    final  clickAtTime = DateTime.now().millisecondsSinceEpoch;
+
+    @override
+  // TODO: implement props
+  List<Object?> get props => [clickAtTime];
+}
+
+
+
 
 
 

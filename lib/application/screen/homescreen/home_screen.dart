@@ -18,7 +18,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    BlocProvider.of<HomeBloc>(context).add(FetchNoteEvent());
     super.initState();
   }
 
@@ -28,41 +27,35 @@ class _HomeScreenState extends State<HomeScreen> {
 
     var isLoading = true;
 
-    return BlocListener<HomeBloc, HomeState>(
-      listenWhen: (previous, current) => current is HomeScreenAction,
-      listener: (context, state) {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const CreateNoteScreen()));
-      },
-      child: Scaffold(
-          appBar: AppBar(
-            title: const Text("Flutter Notes"),
-            centerTitle: Platform.isAndroid ? false : true,
-            backgroundColor: themeData.colorScheme.primaryContainer,
-            actions: [
-              IconButton(onPressed: () {}, icon: const Icon(Icons.menu_rounded))
-            ],
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              BlocProvider.of<HomeBloc>(context).add(AddNoteFabButtonPressed());
-            },
-            child: const Icon(Icons.add),
-          ),
-          body: BlocBuilder(
-              buildWhen: (previous, current) => current is HomeStateUI,
-              bloc: BlocProvider.of<HomeBloc>(context),
-              builder: (context, state) {
-                final homePageState = state as HomeStateUI;
-                if (homePageState.loading) {
-                  return const LoadingContentWidget();
-                } else if (homePageState.errorMessage != '') {
-                  return ShowErrorAppWidget(
-                      errorMessage: homePageState.errorMessage);
-                } else {
-                  isLoading = false;
-                  return NoteListWidget(noteList: state.noteList);
-                }
-              })),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Flutter Notes"),
+        centerTitle: Platform.isAndroid ? false : true,
+        backgroundColor: themeData.colorScheme.primaryContainer,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.menu_rounded))
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          BlocProvider.of<HomeBloc>(context)
+              .add(RequestNavigateToCreateNoteScreen());
+        },
+        child: const Icon(Icons.add),
+      ),
+      body: BlocConsumer(
+        buildWhen: (previous, current) => current is HomeState,
+        bloc: BlocProvider.of<HomeBloc>(context),
+        builder: (context, state) {
+          return const NoteListWidget(noteList: []);
+        },
+        listener: (BuildContext context, Object? state) {
+          if(state is ResponseFabButtonState){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateNoteScreen()));
+          }
+        },
+        listenWhen: (previous, current)  => current is HomeScreenAction,
+      ),
     );
   }
 }
