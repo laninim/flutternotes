@@ -17,9 +17,10 @@ class NoteRepositoryImpl implements NoteRepository {
   }
 
   @override
-  Future<List<NoteModel>> getNoteList() {
-    // TODO: implement getNoteList
-    throw UnimplementedError();
+  Future<List<NoteModel>> getNoteList() async {
+    final sqfliteDb = SqlLiteDatabaseSource();
+    final List<NoteModel> noteList = await sqfliteDb.getNoteList();
+    return noteList;
   }
 
   @override

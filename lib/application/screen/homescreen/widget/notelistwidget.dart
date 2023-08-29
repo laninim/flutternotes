@@ -18,7 +18,7 @@ class NoteListWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8),
         itemCount: noteList.length,
         itemBuilder: (context, index) {
-          return Text(noteList[index].noteId);
+          return Text(noteList[index].noteContent);
         });
     }
   }

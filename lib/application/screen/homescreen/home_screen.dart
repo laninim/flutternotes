@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }else if(state is NoteListState){
              return Scaffold(
               appBar: AppBar(
-                title: const Text("Flutter Notes"),
+                title: const Text("My Notes"),
                 centerTitle: Platform.isAndroid ? false : true,
                 backgroundColor: themeData.colorScheme.primaryContainer,
                 actions: [
