@@ -10,12 +10,18 @@ class NoteListLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 8,
-      child: ListTile(
-        leading: const Icon(Icons.note),
-        title: Text(note.noteTitle),
-        subtitle: Text(note.noteContent),
-        trailing: Text(note.createAt.toString()),
+      elevation: 6,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+         children: [
+           const SizedBox(height: 20,),
+           Text(note.noteContent),
+           const SizedBox(height: 20,),
+           Text(note.createAt.toString())
+         ],
+
+        ),
       ),
     );
   }
