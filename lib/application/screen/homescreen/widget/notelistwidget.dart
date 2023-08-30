@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:note_application/application/screen/homescreen/widget/note_list_layout.dart';
+import 'package:note_application/application/screen/homescreen/widget/note_list_linear_layout.dart';
 import 'package:note_application/domain/entity/note_entity.dart';
 
 
@@ -10,7 +11,7 @@ enum NoteViewType {
 
 class NoteListWidget extends StatelessWidget {
   final List<NoteEntity> noteList;
-  final NoteViewType typeLayout = NoteViewType.grid;
+  final NoteViewType typeLayout = NoteViewType.linear;
 
   const NoteListWidget({
     Key? key,
@@ -23,7 +24,7 @@ class NoteListWidget extends StatelessWidget {
       return const Center(child: Text("Add your first note"),);
     }else{
       if(typeLayout == NoteViewType.linear){
-        return Expanded(child: NoteLinearLayoutWidget(noteList: noteList));
+        return NoteLinearLayoutWidget(noteList: noteList);
       }else{
         return NoteGridLayoutWidget(noteList: noteList,);
       }
@@ -47,7 +48,7 @@ class NoteLinearLayoutWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           itemCount: noteList.length,
           itemBuilder: (context, index) {
-            return NoteListLayout(note: noteList[index]);
+            return NoteListLinearLayout(note: noteList[index]);
           });
     }
   }
