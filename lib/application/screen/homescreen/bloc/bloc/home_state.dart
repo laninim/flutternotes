@@ -21,6 +21,10 @@ class NoteListState extends HomeState {
 
   NoteListState({required this.noteList});
 
+  @override
+  // TODO: implement props
+  List<Object?> get props => [noteList];
+
 
 
   NoteListState copyWith({
