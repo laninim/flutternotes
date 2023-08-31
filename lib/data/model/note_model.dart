@@ -1,6 +1,6 @@
 class NoteModel {
    final int dbId;
-   final String uuid;
+   String? uuid;
    final String title;
    final String content;
    final String createAt;

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:note_application/data/datasource/sql_lite_database.dart';
 import 'package:note_application/data/model/note_model.dart';
 
@@ -12,8 +13,12 @@ class NoteRepositoryImpl implements NoteRepository {
   }
 
   @override
-  void deleteNote() {
-    // TODO: implement deleteNote
+  void deleteNote(NoteModel model) async {
+    final sqfliteDb = SqlLiteDatabaseSource();
+     await sqfliteDb.deleteNote(model);
+
+
+
   }
 
   @override
@@ -27,5 +32,7 @@ class NoteRepositoryImpl implements NoteRepository {
   void updateNote() {
     // TODO: implement updateNote
   }
+
+
 
 }

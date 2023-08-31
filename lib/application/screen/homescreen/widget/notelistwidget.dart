@@ -12,10 +12,12 @@ enum NoteViewType {
 class NoteListWidget extends StatelessWidget {
   final List<NoteEntity> noteList;
   final NoteViewType typeLayout = NoteViewType.linear;
+  final  Function(NoteEntity) onLongTap;
 
   const NoteListWidget({
     Key? key,
     required this.noteList,
+    required this.onLongTap
   }) : super(key: key);
 
   @override
@@ -24,7 +26,7 @@ class NoteListWidget extends StatelessWidget {
       return const Center(child: Text("Add your first note"),);
     }else{
       if(typeLayout == NoteViewType.linear){
-        return NoteLinearLayoutWidget(noteList: noteList);
+        return NoteLinearLayoutWidget(noteList: noteList, onLongTap: onLongTap);
       }else{
         return NoteGridLayoutWidget(noteList: noteList,);
       }
@@ -36,8 +38,9 @@ class NoteListWidget extends StatelessWidget {
 class NoteLinearLayoutWidget extends StatelessWidget {
 
   final List<NoteEntity>  noteList;
+  final Function(NoteEntity)  onLongTap;
 
-  const NoteLinearLayoutWidget({super.key, required this.noteList});
+  const NoteLinearLayoutWidget({super.key, required this.noteList, required this.onLongTap});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,9 @@ class NoteLinearLayoutWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           itemCount: noteList.length,
           itemBuilder: (context, index) {
-            return NoteListLinearLayout(note: noteList[index]);
+            return InkWell(
+              onTap: () => onLongTap(noteList[index]),
+                child: NoteListLinearLayout(note: noteList[index]));
           });
     }
   }

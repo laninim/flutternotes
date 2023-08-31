@@ -23,6 +23,12 @@ class RequestUpadateNoteListData extends HomeEvent {
 
 }
 
+class RemoveNoteEvent extends HomeEvent {
+  final NoteEntity noteToBeDeleted;
+
+  const RemoveNoteEvent({required this.noteToBeDeleted});
+}
+
 
 //fire this event when user click on fab button for go to CreateNoteScreen.
 class RequestNavigateToCreateNoteScreen extends HomeEvent {}

@@ -6,7 +6,7 @@ abstract class NoteRepository {
 
     void updateNote () ;
 
-    void deleteNote () ;
+    void deleteNote (NoteModel model) ;
 
     Future<List<NoteModel>> getNoteList () ;
 }

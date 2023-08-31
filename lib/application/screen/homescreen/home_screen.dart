@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
         buildWhen: (previous, current) => current is! HomeScreenAction,
         bloc: BlocProvider.of<HomeBloc>(context),
         builder: (context, state) {
+          print("Get a state ${state.runtimeType}");
           if(state is LoadingState){
             return Scaffold(
                 appBar: AppBar(
@@ -73,7 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: const Icon(Icons.add),
                 ),
               ),
-              body: NoteListWidget(noteList: state.noteList,),
+              body: NoteListWidget(noteList: state.noteList, onLongTap: (deletedNote) {
+                print("TAPP long incoming bitch");
+                BlocProvider.of<HomeBloc>(context).add(RemoveNoteEvent(noteToBeDeleted: deletedNote));
+              },),
             );
           }else if(state is ErrorScreenState){
             return Scaffold(
