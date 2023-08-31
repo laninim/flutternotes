@@ -50,5 +50,14 @@ class SqlLiteDatabaseSource {
 
     }
 
+
+    void updateNote(NoteModel model) async {
+    print("update note db request");
+      Database database = await openDatabaseConnection();
+      int affectedRow = await database.update("notes", model.toMap(), where: "uuid =?", whereArgs: [model.uuid]);
+      database.close();
+      print("affected row: ${affectedRow}");
+    }
+
   }
 

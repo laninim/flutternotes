@@ -4,7 +4,7 @@ abstract class NoteRepository {
 
     void addNoteToDatabase (NoteModel note); 
 
-    void updateNote () ;
+    void updateNote (NoteModel note) ;
 
     void deleteNote (NoteModel model) ;
 

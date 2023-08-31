@@ -107,11 +107,18 @@ class _HomeScreenState extends State<HomeScreen> {
           if(state is ResponseFabButtonState){
             final noteReady = await Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  CreateNoteScreen(noteDisplayed: null,screenMode: NoteScreenMode.create,)));
             if(noteReady){
+              print("Prepare refresh request");
+              BlocProvider.of<HomeBloc>(context).add(FetchNoteEvent());
+            }
+          }
+          else if(state is GoToEditNoteScreen){
+            final noteUpdated = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateNoteScreen(noteDisplayed: state.note, screenMode: NoteScreenMode.edit)));
+            if(noteUpdated){
               BlocProvider.of<HomeBloc>(context).add(FetchNoteEvent());
             }
           }
         },
-        listenWhen: (previous, current)  => current is HomeScreenAction,
+
       );
 
   }

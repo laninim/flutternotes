@@ -16,6 +16,7 @@ abstract class HomeScreenAction extends HomeScreenState {
 
 //This state is emit when user ask for noteList.
 class NoteListState extends HomeState {
+  final noteListStateRequest = DateTime.now().millisecond;
 
   final List<NoteEntity> noteList;
 
@@ -23,7 +24,7 @@ class NoteListState extends HomeState {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [noteList];
+  List<Object?> get props => [noteListStateRequest];
 
 
 
@@ -60,6 +61,17 @@ class ResponseFabButtonState extends HomeScreenAction {
     @override
   // TODO: implement props
   List<Object?> get props => [clickAtTime];
+}
+
+class GoToEditNoteScreen extends HomeScreenAction {
+  final requestTime = DateTime.now().millisecondsSinceEpoch;
+  final NoteEntity note;
+
+  GoToEditNoteScreen({required this.note});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [requestTime];
 }
 
 

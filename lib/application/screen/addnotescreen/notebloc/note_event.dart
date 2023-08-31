@@ -8,3 +8,9 @@ class SaveNoteDataEvent extends NoteEvent {
 
     SaveNoteDataEvent({required this.noteBeSave});
 }
+
+class UpdateNoteDataEvent extends NoteEvent {
+  final NoteEntity noteBeUpdate;
+
+  UpdateNoteDataEvent({required this.noteBeUpdate});
+}

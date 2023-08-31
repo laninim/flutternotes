@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -17,6 +18,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeScreenState> {
       on<StartApplicationEvent>(setupStartApplication);
       on<FetchNoteEvent>(fetchNotesFromDatabase);
       on<RemoveNoteEvent>(removeNoteFromDatabase);
+      on<RequestNavigateInEditModeToCreateNoteScreen>(goToEditNoteScreen);
   }
 
   FutureOr<void> fetchNotesFromDatabase(FetchNoteEvent event, Emitter<HomeScreenState> emit) async {
@@ -47,5 +49,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeScreenState> {
     final getNoteUseCase = GetNoteUseCase();
     final myList = await getNoteUseCase.getNoteList();
     emit(NoteListState(noteList: [...myList]));
+  }
+
+  FutureOr<void> goToEditNoteScreen(RequestNavigateInEditModeToCreateNoteScreen event, Emitter<HomeScreenState> emit) {
+      final noteShow = event.note;
+      final currentState = GoToEditNoteScreen(note: noteShow);
+      emit(currentState);
   }
 }

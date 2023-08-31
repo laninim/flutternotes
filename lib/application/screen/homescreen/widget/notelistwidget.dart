@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:note_application/application/screen/addnotescreen/create_note_screen.dart';
 import 'package:note_application/application/screen/homescreen/widget/note_list_layout.dart';
 import 'package:note_application/application/screen/homescreen/widget/note_list_linear_layout.dart';
 import 'package:note_application/domain/entity/note_entity.dart';
+
+import '../bloc/bloc/home_bloc.dart';
 
 
 enum NoteViewType {
@@ -55,7 +58,8 @@ class NoteLinearLayoutWidget extends StatelessWidget {
             return InkWell(
               onLongPress: () => onLongTap(noteList[index]),
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> CreateNoteScreen(noteDisplayed: noteList[index], screenMode: NoteScreenMode.edit)));
+                  //design request.
+                  BlocProvider.of<HomeBloc>(context).add(RequestNavigateInEditModeToCreateNoteScreen(note: noteList[index]));
                 },
 
                 child: NoteListLinearLayout(note: noteList[index]));

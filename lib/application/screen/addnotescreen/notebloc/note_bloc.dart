@@ -7,6 +7,7 @@ import 'package:note_application/data/mock_note_list.dart';
 import 'package:note_application/data/repositories/note_repository_impl.dart';
 import 'package:note_application/domain/entity/note_entity.dart';
 import 'package:note_application/domain/usecase/add_note_usecase.dart';
+import 'package:note_application/domain/usecase/update_note_usecase.dart';
 
 part 'note_event.dart';
 part 'note_state.dart';
@@ -14,6 +15,7 @@ part 'note_state.dart';
 class NoteBloc extends Bloc<NoteEvent, NoteState> {
   NoteBloc() : super(NoteState.initial()) {
     on<SaveNoteDataEvent>(saveNoteInTheDataSource);
+    on<UpdateNoteDataEvent>(updateNoteInTheDataSource);
   }
 
   FutureOr<void> saveNoteInTheDataSource(SaveNoteDataEvent event, Emitter<NoteState> emit) {
@@ -21,5 +23,14 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
     final newNote = event.noteBeSave;
     final addNoteUseCase = AddNoteUseCase(repository: NoteRepositoryImpl());
     addNoteUseCase.addNoteToDatabase(event.noteBeSave);
+  }
+
+
+
+  FutureOr<void> updateNoteInTheDataSource(UpdateNoteDataEvent event, Emitter<NoteState> emit) {
+    debugPrint("handle update note event");
+    final updateNote = event.noteBeUpdate;
+    final updateNoteUseCase = UpdateNoteUseCase();
+    updateNoteUseCase.updateNote(updateNote);
   }
 }

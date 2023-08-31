@@ -29,8 +29,10 @@ class NoteRepositoryImpl implements NoteRepository {
   }
 
   @override
-  void updateNote() {
-    // TODO: implement updateNote
+  void updateNote(NoteModel model) {
+    print("update note repository note");
+    final sqfliteDb = SqlLiteDatabaseSource();
+    sqfliteDb.updateNote(model);
   }
 
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_application/application/screen/homescreen/bloc/bloc/home_bloc.dart';
 import 'package:note_application/domain/entity/note_entity.dart';
 
+import '../homescreen/home_screen.dart';
 import 'notebloc/note_bloc.dart';
 
 //create note show note edit note
@@ -42,24 +44,36 @@ class CreateNoteScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 8.0),
                     child: IconButton(
                         onPressed: () {
-                          final content = contentController.text;
-                          var title = "";
+                          if(screenMode == NoteScreenMode.create){
+                            final content = contentController.text;
+                            var title = "";
 
-                          if(content.length < 10) {
-                            title = DateTime.now().millisecond.toString();
-                          }else{
-                            title = content.substring(0, 9);
+                            if(content.length < 10) {
+                              title = DateTime.now().millisecond.toString();
+                            }else{
+                              title = content.substring(0, 9);
+                            }
+                            BlocProvider.of<NoteBloc>(context).add(
+
+                                SaveNoteDataEvent(
+                                    noteBeSave: NoteEntity.FirstCreate(
+                                        noteTitle: title,
+                                        noteContent: content,
+                                        createAt: DateTime.now())));
+                            Navigator.of(context).pop(true);
+
+                          }else {
+                            final content = contentController.text;
+
+                            BlocProvider.of<NoteBloc>(context).add(
+                             UpdateNoteDataEvent(noteBeUpdate: NoteEntity(noteId: noteDisplayed!.noteId, noteTitle: noteDisplayed!.noteTitle, noteContent: content, createAt: noteDisplayed!.createAt))
+                            );
+
+                            Navigator.of(context).pop(true);
+
+
                           }
-                          BlocProvider.of<NoteBloc>(context).add(
-
-                              SaveNoteDataEvent(
-                                  noteBeSave: NoteEntity.FirstCreate(
-                                      noteTitle: title,
-                                      noteContent: content,
-                                      createAt: DateTime.now())));
-                          Navigator.of(context).pop(true);
                         },
-
                         icon: const Icon(Icons.save)))
               ],
             ),

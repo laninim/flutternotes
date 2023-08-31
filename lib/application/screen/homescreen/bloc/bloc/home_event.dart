@@ -33,4 +33,10 @@ class RemoveNoteEvent extends HomeEvent {
 //fire this event when user click on fab button for go to CreateNoteScreen.
 class RequestNavigateToCreateNoteScreen extends HomeEvent {}
 
+class RequestNavigateInEditModeToCreateNoteScreen extends HomeEvent {
+  final NoteEntity note;
+
+  RequestNavigateInEditModeToCreateNoteScreen({required this.note});
+}
+
 class StartApplicationEvent extends HomeEvent {}
