@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../data/model/note_model.dart';
+
 // ignore: prefer_const_constructors
 final kUuid = Uuid();
 
@@ -10,11 +12,15 @@ class NoteEntity extends Equatable {
   final String noteContent;
   final DateTime createAt;
 
-  NoteEntity(
+  NoteEntity({required this.noteId, required this.noteTitle, required this.noteContent, required this.createAt});
+
+  NoteEntity.FirstCreate(
       {required this.noteTitle,
       required this.noteContent,
       required this.createAt})
       : noteId = kUuid.v4();
+
+
 
   @override
   List<Object?> get props => [noteId];
@@ -28,7 +34,7 @@ class NoteEntity extends Equatable {
     return NoteEntity(
       noteTitle: noteTitle ?? this.noteTitle,
       noteContent: noteContent ?? this.noteContent,
-      createAt: createAt ?? this.createAt,
+      createAt: createAt ?? this.createAt, noteId: '',
     );
   }
 

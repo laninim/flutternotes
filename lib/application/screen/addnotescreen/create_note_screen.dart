@@ -40,7 +40,7 @@ class CreateNoteScreen extends StatelessWidget {
                           BlocProvider.of<NoteBloc>(context).add(
 
                               SaveNoteDataEvent(
-                                  noteBeSave: NoteEntity(
+                                  noteBeSave: NoteEntity.FirstCreate(
                                       noteTitle: title,
                                       noteContent: content,
                                       createAt: DateTime.now())));

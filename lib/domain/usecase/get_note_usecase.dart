@@ -7,7 +7,7 @@ class GetNoteUseCase {
        final repository = NoteRepositoryImpl();
        final noteList = await repository.getNoteList();
        if(noteList.isNotEmpty){
-         final  noteEntity = noteList.map((e) => NoteEntity(noteTitle: e.title, noteContent: e.content, createAt: DateTime.parse(e.createAt))).toList();
+         final  noteEntity = noteList.map((e) => NoteEntity(noteId: e.uuid,  noteTitle: e.title, noteContent: e.content, createAt: DateTime.parse(e.createAt))).toList();
          return noteEntity;
        }
        return [];
