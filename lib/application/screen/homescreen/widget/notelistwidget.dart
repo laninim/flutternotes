@@ -15,7 +15,7 @@ enum NoteViewType {
 
 class NoteListWidget extends StatelessWidget {
   final List<NoteEntity> noteList;
-  final NoteViewType typeLayout = NoteViewType.linear;
+  final NoteViewType typeLayout = NoteViewType.grid;
   final  Function(NoteEntity) onLongTap;
 
   const NoteListWidget({
@@ -32,7 +32,7 @@ class NoteListWidget extends StatelessWidget {
       if(typeLayout == NoteViewType.linear){
         return NoteLinearLayoutWidget(noteList: noteList, onLongTap: onLongTap);
       }else{
-        return NoteGridLayoutWidget(noteList: noteList,);
+        return NoteGridLayoutWidget(noteList: noteList, onLongTap: onLongTap,);
       }
     }
   }
@@ -73,7 +73,9 @@ class NoteGridLayoutWidget extends StatelessWidget {
 
   final List<NoteEntity> noteList;
 
-  const NoteGridLayoutWidget({super.key, required this.noteList});
+  final Function(NoteEntity) onLongTap;
+
+  const NoteGridLayoutWidget({super.key, required this.noteList, required this.onLongTap});
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,14 @@ class NoteGridLayoutWidget extends StatelessWidget {
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
         crossAxisCount: 2, itemBuilder: (context, index){
-        return NoteListLayout(note: noteList[index]);
+      return InkWell(
+          onLongPress: () => onLongTap(noteList[index]),
+          onTap: (){
+            //design request.
+            BlocProvider.of<HomeBloc>(context).add(RequestNavigateInEditModeToCreateNoteScreen(note: noteList[index]));
+          },
+
+          child: NoteListLayout(note: noteList[index]));
     });
   }
 }
