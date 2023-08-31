@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:note_application/application/screen/addnotescreen/create_note_screen.dart';
 import 'package:note_application/application/screen/homescreen/widget/note_list_layout.dart';
 import 'package:note_application/application/screen/homescreen/widget/note_list_linear_layout.dart';
 import 'package:note_application/domain/entity/note_entity.dart';
@@ -52,7 +53,11 @@ class NoteLinearLayoutWidget extends StatelessWidget {
           itemCount: noteList.length,
           itemBuilder: (context, index) {
             return InkWell(
-              onTap: () => onLongTap(noteList[index]),
+              onLongPress: () => onLongTap(noteList[index]),
+                onTap: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> CreateNoteScreen(noteDisplayed: noteList[index], screenMode: NoteScreenMode.edit)));
+                },
+
                 child: NoteListLinearLayout(note: noteList[index]));
           });
     }

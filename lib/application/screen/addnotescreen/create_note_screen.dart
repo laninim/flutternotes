@@ -6,14 +6,27 @@ import 'notebloc/note_bloc.dart';
 
 //create note show note edit note
 
+//enum
+enum NoteScreenMode{
+  edit,create
+}
+
 class CreateNoteScreen extends StatelessWidget {
 
-  CreateNoteScreen({super.key});
+  //note to be displayed
+  final NoteEntity? noteDisplayed;
+
+  final NoteScreenMode screenMode;
+
+  CreateNoteScreen({super.key, required this.noteDisplayed, required this.screenMode});
 
   final contentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+
+    contentController.text = noteDisplayed?.noteContent ?? "";
+
     return BlocProvider(
       create: (context) => NoteBloc(),
       child: BlocConsumer<NoteBloc, NoteState>(
@@ -58,6 +71,7 @@ class CreateNoteScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12.0, vertical: 6),
                     child: TextFormField(
+
                       controller: contentController,
                       minLines: null,
                       maxLines: null,
